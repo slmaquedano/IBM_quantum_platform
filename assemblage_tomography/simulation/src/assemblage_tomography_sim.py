@@ -5,7 +5,8 @@ from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit
 import h5py
 
 # Número de repetições
-valores_desejados = [100000]
+valores_desejados = [10, 50, 100, 200, 400, 600, 800, 1000, 2500, 5000, 7500, 10000]
+# valores_desejados = [100000]
 w = 1.0
 
 # Criar o loop for
@@ -14,7 +15,7 @@ for num_repetitions in valores_desejados:
     # Listas para armazenar resultados
     angles_list = []
     sigma_total = []
-    for rep in range(1, 2, 1):
+    for rep in range(1, 1000, 1):
         
         # # Gerar ângulos aleatórios entre -pi e pi
         # alpha = random.uniform(0, 2*np.pi)
@@ -181,7 +182,9 @@ for num_repetitions in valores_desejados:
         sigma_total.append(sigma_x_list)
     # print(sigma_total)
 
-    with h5py.File(f'../dat/sigma_werner{w}num_shots{num_repetitions}.h5', 'w') as f:
+    # with h5py.File(f'../dat/werner10/sigma_werner{w}num_shots{num_repetitions}.h5', 'w') as f:
+    with h5py.File(f'../dat/werner10/sigma_werner10_shots{num_repetitions}.h5', 'w') as f:
+
         for rep_idx, repetition in enumerate(sigma_total):
             rep_group = f.create_group(f'repetition_{rep_idx}')
             rep_group.attrs['angles'] = angles_list[rep_idx]
